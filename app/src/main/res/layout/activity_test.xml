@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.tencent.wmpf.pos.activity.TestActivity">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:id="@+id/edit_pay_code"
+        android:layout_marginTop="16dp"
+        android:text="授权码："
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="visible"/>
+    <Button
+        android:id="@+id/download"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/edit_pay_code"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="下载wmpf服务apk"/>
+    <Button
+        android:id="@+id/download_pic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/download"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="下载图片"/>
+    <Button
+        android:id="@+id/print"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/download_pic"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="打印(现金支付)"/>
+    <Button
+        android:id="@+id/print_out"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/print"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="外接设备打印"/>
+    <TextView
+        android:id="@+id/usbInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/print_out" />
+</android.support.constraint.ConstraintLayout>

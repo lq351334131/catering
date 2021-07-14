@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">绮妙冰淇淋</string>
+    <string name="login">登录</string>
+    <string name="init_title">初始化操作</string>
+    <string name="first_step">操作员登录\n第1步</string>
+    <string name="second_step">设备激活\n第2步</string>
+    <string name="activate_title">设备激活</string>
+    <string name="store_param">上传门店参数</string>
+    <string name="add_device">添加设备</string>
+    <string name="activate">激活</string>
+    <string name="commit">提交</string>
+    <string name="launch_wxa">启动微信小程序</string>
+    <string name="launch_test_wxa">启动测试小程序</string>
+    <string name="wx_login">登录（小程序开发版）</string>
+    <string name="tips">温馨提示：\n1、如果不能正常启动微信小程序，请打开设置->应用->微信小程序硬件框架，点击强行停止；\n2、如果小程序版本未更新，请使用开发者微信扫码登录，然后再启动小程序。</string>
+</resources>

@@ -1,0 +1,135 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+def releaseTime() {
+    return new Date().format("MMddHHmm")
+}
+
+android {
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "com.etocrm.wmpf"
+        minSdkVersion 21
+        targetSdkVersion 26
+        versionCode 2
+        versionName "1.0.1"
+        multiDexEnabled true
+        // TODO: Change this to your appId applied from open.weixin.qq.com
+        // WARNING: WXA Apps run on each host AppId could be limited.
+        buildConfigField 'String', 'HOST_APPID', "\"wx1f3d44e66b3b7783\""
+        buildConfigField 'String', 'MAIN_APPID', "\"wxb030af3ca20113b2\""
+        buildConfigField 'String', 'TEST_APPID', "\"wxd1eedac94d1f4e27\""
+        buildConfigField 'String', 'WMPF_APK_URL', "\"https://github.com/wmpf/wmpf_demo_external/releases/download/v1.0.5/wmpf-arm-production-release-v1.0.5-640-signed.apk\""
+        // TODO: Temp workaround. You should keep the APP_SECRET out from your apk.
+        buildConfigField 'String', 'HOST_APPSECRET', "\"\""
+    }
+    signingConfigs {
+        debug {
+            storeFile file { "./pos.jks" }
+            storePassword "etocrm2020"
+            keyAlias "key0"
+            keyPassword "etocrm2020"
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+        release {
+            storeFile file { "./pos.jks" }
+            storePassword "etocrm2020"
+            keyAlias "key0"
+            keyPassword "etocrm2020"
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    flavorDimensions 'product'
+    productFlavors {
+        guide {
+            dimension 'product'
+            applicationIdSuffix ".pos"
+            versionNameSuffix ""
+        }
+        experience {
+            dimension 'product'
+            applicationIdSuffix ".experience"
+            versionNameSuffix "-experience"
+        }
+        wxfacepay {
+            dimension 'product'
+            applicationIdSuffix ".wxfacepay"
+            versionNameSuffix "-wxfacepay"
+        }
+    }
+    packagingOptions {
+        exclude 'META-INF/proguard/androidx-annotations.pro'
+    }
+    android.applicationVariants.all { variant ->
+
+        variant.outputs.all {
+            outputFileName = "android_${versionName}_${releaseTime()}_${variant.buildType.getName()}.apk"
+        }
+
+        switch (variant.buildType.getName()) {
+            case "release":
+                variant.buildConfigField "String", "APIURL", "\"https://apiserver-saas-wux.woaap.com\""
+                break
+            case "debug":
+                variant.buildConfigField "String", "APIURL", "\"http://apiserver-saas-sit.woaap.com\""
+                break
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+    api 'org.parceler:parceler-api:1.1.9'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:multidex:1.0.3'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.android.support:recyclerview-v7:26.1.0'
+
+    // TODO
+//    api("com.tencent.wmpf:wmpf-cli:0.1.5.2-SNAPSHOT") {changing = true}
+//    api("com.tencent.wmpf:wmpf-cli-addon:0.1.5.2-SNAPSHOT") {changing = true}
+
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+
+    api('com.github.bumptech.glide:glide:4.5.0') {
+        exclude group: 'com.android.support', module: 'support-media-compat'
+        exclude group: 'com.android.support', module: 'animated-vector-drawable'
+        exclude group: 'com.android.support', module: 'support-fragment'
+    }
+    api 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    api 'io.reactivex.rxjava2:rxjava:2.1.16'
+    api 'com.squareup.okhttp3:okhttp:3.10.0'
+
+    api 'cn.yipianfengye.android:zxing-library:2.2'
+
+    implementation 'com.tencent:mmkv-static:1.0.24'
+
+    implementation 'com.sunmi:printerlibrary:1.0.8'
+    implementation 'com.sunmi:DeviceManagerLibrary:1.0.17'
+    implementation 'com.alibaba:fastjson:1.2.58'
+    implementation 'com.sunmi:SunmiOpenService:1.0.2'
+    //外接打印机
+    implementation 'com.sunmi:external-printerlibrary:1.0.8'
+
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.17'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.9.0'
+    implementation 'com.amitshekhar.android:rx2-android-networking:1.0.0'
+    implementation 'org.greenrobot:eventbus:3.1.1'
+
+}
